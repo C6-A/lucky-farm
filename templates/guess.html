@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+    <p class="eyebrow">Guess the Number</p>
+    <h1>猜猜我想的数</h1>
+    <p class="lead">我心里有一个 {{ low_limit }} – {{ high_limit }} 之间的整数，猜错了我告诉你是大还是小。</p>
+
+    <div class="meta">
+        <span class="chip">已猜 <b>{{ count }}</b> 次</span>
+        {% if won %}
+        <span class="chip">本局结束</span>
+        {% else %}
+        <span class="chip">可能范围 <b>{{ low }} – {{ high }}</b></span>
+        {% endif %}
+    </div>
+
+    {% if message %}
+    <div class="msg {{ message.kind }}" role="status" aria-live="polite">
+        <p>{{ message.text }}</p>
+        {% if message.tip %}<p class="tip">{{ message.tip }}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if won %}
+    <div class="win" role="status" aria-live="polite">
+        {{ sprites.trophy|safe }}
+        <p class="win-title">太厉害了！</p>
+        <p class="win-sub">答案就是 <b>{{ target }}</b>，你一共猜了 <b>{{ count }}</b> 次。</p>
+        <a class="btn green" href="/guess">再玩一局</a>
+    </div>
+    {% else %}
+    <form class="guess-form" method="POST" autocomplete="off">
+        <input type="number" name="num" min="{{ low_limit }}" max="{{ high_limit }}" step="1"
+               required autofocus inputmode="numeric"
+               placeholder="{{ low_limit }} – {{ high_limit }}" aria-label="输入你猜的数字">
+        <button class="btn" type="submit">确认猜</button>
+    </form>
+    <p class="hint">还剩 <b>{{ span }}</b> 种可能，加油！</p>
+    {% endif %}
+
+    <div class="links">
+        <a href="/guess/reset">重新开始</a>
+        <a href="/">回主页</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel center">
+    <p class="eyebrow">Lucky Number</p>
+    <h1>今天的幸运数字</h1>
+    <p class="lead">随便抽一个，说不定就是今天的好运。</p>
+
+    <div class="result">
+        <b>{{ number }}</b>
+        <span class="spark sp1">{{ sprites.star|safe }}</span>
+        <span class="spark sp2">{{ sprites.star|safe }}</span>
+        <span class="spark sp3">{{ sprites.star|safe }}</span>
+    </div>
+
+    <p class="hint">范围 {{ low }} – {{ high }} · 这是你第 <b>{{ times }}</b> 次抽奖</p>
+
+    {% if previous %}
+    <div class="pins">
+        <span class="chip">前几次</span>
+        {% for value in previous %}<span class="pin">{{ value }}</span>{% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="actions" style="justify-content:center">
+        <a class="btn" href="/dice">再抽一次</a>
+        <a class="btn cream" href="/">回主页</a>
+    </div>
+</section>
+{% endblock %}

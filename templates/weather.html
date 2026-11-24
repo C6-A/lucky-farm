@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+    <div class="weather-head">
+        <div>
+            <p class="eyebrow">Weather Station</p>
+            <h1>农场天气</h1>
+            <p class="lead">实时天气、未来 24 小时和 7 天预报。直接输入“省-市-区”（如 广东-深圳-宝安）就能定位到区县，也可以点定位获取所在街道。</p>
+        </div>
+        <div class="clock-mini">
+            <div class="clock" id="clock">--:--:--</div>
+            <p class="clock-date" id="date">--</p>
+        </div>
+    </div>
+
+    <div class="place-bar">
+        <form class="search" id="searchForm" autocomplete="off">
+            <input type="text" id="cityInput" placeholder="省-市-区，如 广东-深圳-宝安" aria-label="城市或区县名称">
+            <button class="btn small" type="submit">查天气</button>
+        </form>
+        <button class="btn small cream" id="locateBtn" type="button">定位</button>
+        <span class="place-name" id="placeName">上海</span>
+        <span class="updated" id="updated"></span>
+    </div>
+    <div class="search-results hidden" id="results"></div>
+    <p class="place-hint hidden" id="locNote"></p>
+
+    <div class="wx-status" id="wxStatus">正在获取天气…</div>
+    <div class="wx-error hidden" id="wxError">
+        <p id="wxErrorText">天气获取失败。</p>
+        <div class="error-actions">
+            <button class="btn small" type="button" id="retryBtn">重试加载</button>
+            <button class="btn small cream" type="button" id="locateRetryBtn">重新定位</button>
+        </div>
+    </div>
+
+    <div class="wx-now hidden" id="wxNow">
+        <div class="wx-big" id="wxBig"></div>
+        <div class="wx-main">
+            <div class="wx-temp"><b id="curTemp">--</b><span>°C</span></div>
+            <p class="wx-desc" id="curDesc">--</p>
+            <p class="wx-place-line" id="curPlace">--</p>
+        </div>
+        <div class="wx-facts">
+            <span class="chip">体感 <b id="feels">--</b>°</span>
+            <span class="chip">湿度 <b id="humidity">--</b>%</span>
+            <span class="chip">风 <b id="wind">--</b> km/h</span>
+            <span class="chip">降水 <b id="pop">--</b>%</span>
+            <span class="chip">今日 <b id="todayTemp">--</b></span>
+            <span class="chip"><b id="sun">日出 -- · 日落 --</b></span>
+        </div>
+    </div>
+
+    <div class="wx-section hidden" id="hourlySection">
+        <div class="wx-section-title">
+            <h2>未来 24 小时</h2>
+            <span id="hourlyNote">--</span>
+        </div>
+        <div class="hours" id="hours"></div>
+    </div>
+
+    <div class="wx-section hidden" id="dailySection">
+        <div class="wx-section-title">
+            <h2>未来 7 天</h2>
+            <span id="dailyNote">--</span>
+        </div>
+        <div class="days" id="days"></div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>window.__WX_ICONS__ = {{ wx_icons|tojson }};</script>
+<script src="{{ url_for('static', filename='js/weather-core.js') }}"></script>
+<script src="{{ url_for('static', filename='js/weather.js') }}"></script>
+{% endblock %}

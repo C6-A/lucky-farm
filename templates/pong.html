@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel game-panel">
+    <div class="game-head">
+        <p class="eyebrow">Pong</p>
+        <h1>乒乓球</h1>
+        <p class="lead">移动鼠标或按 ↑ ↓ 控制左边的球拍，先得 7 分获胜。</p>
+    </div>
+
+    <div class="hud">
+        <div class="score"><span>你</span><b id="pScore">0</b></div>
+        <div class="hud-buttons">
+            <button class="btn small cream" id="pPause" type="button">暂停</button>
+            <button class="btn small" id="pRestart" type="button">重开</button>
+        </div>
+        <div class="score"><span>电脑</span><b id="aScore">0</b></div>
+    </div>
+
+    <div class="frame">
+        <canvas id="pong" width="800" height="500" data-state="idle" aria-label="乒乓球游戏画面"></canvas>
+        <div class="overlay" id="pOverlay">
+            <p class="ov-title" id="pTitle">准备好了吗？</p>
+            <p class="ov-sub" id="pSub">鼠标移动或 ↑ ↓ 控制球拍 · 空格暂停 · R 重开</p>
+            <button class="btn" id="pStart" type="button">开始游戏</button>
+        </div>
+    </div>
+
+    <div class="keys">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> 或鼠标移动</span>
+        <span><kbd>空格</kbd> 暂停 / 继续</span>
+        <span><kbd>R</kbd> 重新开始</span>
+        <span>手机上直接在画面里滑动</span>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pong.js') }}"></script>
+{% endblock %}

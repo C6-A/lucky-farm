@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel center">
+    <div style="width:96px;margin:0 auto 12px">{{ sprites.quiz|safe }}</div>
+    <p class="eyebrow">404 Not Found</p>
+    <h1>这里没有庄稼</h1>
+    <p class="lead">链接可能被风吹走了，回主页看看吧。</p>
+    <div class="actions" style="justify-content:center">
+        <a class="btn" href="/">回主页</a>
+    </div>
+</section>
+{% endblock %}
